@@ -169,7 +169,7 @@ void SleepHandler::doSleep(bool interruptible) {
   UCSR0B = ucsr0b;
   ACSR = acsr;
   ADCSRA = adcsra;
-  while (ADCSRB & (1 << AVDDOK)) /* nothing */;
+  while (!(ADCSRB & (1 << AVDDOK))) /* nothing */;
 }
 
 uint32_t SleepHandler::ticks() {
