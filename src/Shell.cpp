@@ -9,6 +9,7 @@
 #include "Shell.h"
 #include "Scout.h"
 #include "backpacks/Backpacks.h"
+#include "SleepHandler.h"
 #include "bitlash.h"
 #include "src/bitlash.h"
 extern "C" {
@@ -47,6 +48,7 @@ static numvar disableBackpackVcc(void);
 static numvar isBackpackVccEnabled(void);
 static numvar sleep(void);
 static numvar powerReport(void);
+static numvar powerWakeupPin(void);
 
 static numvar ledBlink(void);
 static numvar ledOff(void);
@@ -200,6 +202,7 @@ void PinoccioShell::setup() {
   addBitlashFunction("power.isvccenabled", (bitlash_function) isBackpackVccEnabled);
   addBitlashFunction("power.sleep", (bitlash_function) sleep);
   addBitlashFunction("power.report", (bitlash_function) powerReport);
+  addBitlashFunction("power.wakeup.pin", (bitlash_function) powerWakeupPin);
 
   addBitlashFunction("mesh.config", (bitlash_function) meshConfig);
   addBitlashFunction("mesh.setpower", (bitlash_function) meshSetPower);
@@ -726,6 +729,37 @@ static StringBuffer powerReportHQ(void) {
 
 static numvar powerReport(void) {
   speol(powerReportHQ());
+  return 1;
+}
+
+ISR(PCINT0_vect) {
+  Serial.println("foo");
+}
+static numvar powerWakeupPin(void) {
+  if (!checkArgs(1, 2, F("usage: power.wakeup.pin(\"pinName\", [enable])"))) {
+    return 0;
+  }
+
+  int8_t pin = getPinFromArg(1);
+  bool enable = getarg(0) == 2 ? getarg(2) : 1;
+
+  if (pin == -1) {
+    speol(F("Invalid pin number"));
+    return 0;
+  }
+
+  if (!SleepHandler::pinWakeupSupported(pin)) {
+    speol(F("Wakeup not supported for this pin"));
+    return 0;
+  }
+
+  if (Scout.isPinReserved(pin)) {
+    speol(F("Cannot enable wakeup on a reserved pin"));
+    return 0;
+  }
+
+  SleepHandler::setPinWakeup(pin, enable);
+
   return 1;
 }
 

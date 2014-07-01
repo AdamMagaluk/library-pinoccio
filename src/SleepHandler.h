@@ -1,6 +1,8 @@
 #ifndef LIB_PINOCCIO_SLEEP_H
 #define LIB_PINOCCIO_SLEEP_H
 
+#include "backpack-bus/Pbbe.h"
+
 class SleepHandler {
   public:
     static void setup();
@@ -24,6 +26,9 @@ class SleepHandler {
     // If the previously scheduled end time has already passed, this
     // returns immediately, without sleeping.
     static void doSleep(bool interruptible);
+
+    static void setPinWakeup(uint8_t pin, bool enable);
+    static bool pinWakeupSupported(uint8_t pin);
 
     // A timer tick is always 16μs, so the tick count overflows after
     // 2^32 * 16 / 1000 == 68,719,476 ms (±19 hours). ms should not be
@@ -56,7 +61,8 @@ class SleepHandler {
     static const uint8_t US_PER_TICK = (1000000/62500);
     // TODO: Once C++11 is enabled, add a static_assert to check that
     // US_PER_TICK is integer
-    //
+
+    static Pbbe::LogicalPin::mask_t pinWakeups;
 };
 
 #endif // LIB_PINOCCIO_SLEEP_H
