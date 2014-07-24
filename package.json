@@ -8,9 +8,9 @@
   },
   "dependencies": {
     "bitlash": "^0.1.0",
-    "gainspans2w.ino": "^0.1.1",
-    "js0n.ino": "^0.1.0",
-    "lwm.ino": "^0.0.0",
+    "gainspans2w.ino": "^0.1.2",
+    "js0n.ino": "^0.1.1",
+    "lwm.ino": "^1.1.1",
     "wire.ino": "^0.0.2"
   },
   "devDependencies": {},
