@@ -1,6 +1,6 @@
 {
   "name": "pinoccio.ino",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Arduino library for Pinoccio leo package",
   "main": "index.js",
   "directories": {
@@ -11,7 +11,7 @@
     "gainspans2w.ino": "^0.1.2",
     "js0n.ino": "^0.1.1",
     "lwm.ino": "^1.1.1",
-    "wire.ino": "^0.0.2"
+    "wire.ino": "0.0.2"
   },
   "devDependencies": {},
   "scripts": {
