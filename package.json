@@ -1,0 +1,35 @@
+{
+  "name": "pinoccio.ino",
+  "version": "0.1.0",
+  "description": "Arduino library for Pinoccio leo package",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "dependencies": {
+    "bitlash": "^0.1.0",
+    "gainspans2w.ino": "^0.1.1",
+    "js0n.ino": "^0.1.0",
+    "lwm.ino": "^0.0.0",
+    "wire.ino": "^0.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "leo",
+    "arduino",
+    "pinoccio"
+  ],
+  "author": "Matthijs Kooijman <matthijs@stdin.nl>",
+  "license": "BSD",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Pinoccio/library-pinoccio.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Pinoccio/library-pinoccio/issues"
+  },
+  "homepage": "https://github.com/Pinoccio/library-pinoccio"
+}
